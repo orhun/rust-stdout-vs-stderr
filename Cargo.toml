@@ -1,0 +1,21 @@
+[package]
+name = "rust-stdout-vs-stderr"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "simple-tui"
+path = "src/simple-tui.rs"
+
+[dependencies]
+ratatui = "0.25.0"
+crossterm = "0.27.0"
+anyhow = "1.0.76"
+enum-iterator = "1.4.1"
+lazy_static = "1.4.0"
+palette = "0.7.3"
+rand = "0.8.5"
+
+[profile.profiling]
+inherits = "release"
+debug = true
