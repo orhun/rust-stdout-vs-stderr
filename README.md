@@ -8,3 +8,4 @@ This repository contains the following Rust scripts:
   - Also see [`run-profiler.sh`](./run-profiler.sh)
 - [`linewriter.rs`](./src/writer/linewriter.rs): `LineWriter` example
 - [`bufwriter.rs`](./src/writer/bufwriter.rs): `BufWriter` example
+- [`block-buffered-stdout.rs`](./src/writer/block-buffered-stdout.rs): stdout with `BufWriter`

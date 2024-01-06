@@ -23,6 +23,10 @@ path = "src/writer/linewriter.rs"
 name = "bufwriter"
 path = "src/writer/bufwriter.rs"
 
+[[bin]]
+name = "block-buffered-stdout"
+path = "src/writer/block-buffered-stdout.rs"
+
 [dependencies]
 ratatui = "0.25.0"
 crossterm = "0.27.0"
