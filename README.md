@@ -6,3 +6,5 @@ This repository contains the following Rust scripts:
 - [`stdout-vs-stderr.rs`](./src/stdout-vs-stderr.rs): measuring FPS for stdout and stderr
 - [`stdout-vs-stderr-profiler.rs`](./src/stdout-vs-stderr.rs): profiling stdout and stderr
   - Also see [`run-profiler.sh`](./run-profiler.sh)
+- [`linewriter.rs`](./src/writer/linewriter.rs): `LineWriter` example
+- [`bufwriter.rs`](./src/writer/bufwriter.rs): `BufWriter` example
