@@ -11,5 +11,8 @@ This repository contains the following Rust scripts:
 - [`block-buffered-stdout.rs`](./src/writer/block-buffered-stdout.rs): stdout with `BufWriter`
 - [`raw-fd-exploit.rs`](./src/bonus/raw-fd-exploit.rs): Exploit described in [this discussion](https://users.rust-lang.org/t/why-is-fromrawfd-unsafe/39670).
 - [`raw-stdout-broken`](./src/unbuffered/raw-stdout-broken.rs): Broken example of unbuffered stdout
+
   - [`raw-stdout-1`](./src/unbuffered/raw-stdout-1.rs): Unbuffered stdout
   - [`raw-stdout-2`](./src/unbuffered/raw-stdout-2.rs): Unbuffered stdout (alternative)
+
+- [`stdout-vs-stderr-all.rs`](./src/stdout-vs-stderr-all.rs) (**default**): rendering comparison for stdout and stderr using unbuffered / line-buffered / block-buffered writes

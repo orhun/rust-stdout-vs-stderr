@@ -1,48 +1,76 @@
 #!/usr/bin/env rust-script
 
 //! ```cargo
-//! [dependencies]
-//! anyhow = "1.0.76"
+//! ratatui = "0.25.0"
 //! crossterm = "0.27.0"
+//! anyhow = "1.0.76"
+//! enum-iterator = "1.4.1"
+//! lazy_static = "1.4.0"
 //! palette = "0.7.3"
 //! rand = "0.8.5"
-//! ratatui = "0.25.0"
 //! ```
 
-use anyhow::Result;
 use std::{
     fmt,
-    io::{stderr, stdout, Write},
+    fs::File,
+    io::{self, BufWriter, LineWriter, Write},
+    os::fd::{FromRawFd, OwnedFd},
     time::{Duration, Instant},
 };
 
+use anyhow::Result;
 use crossterm::{
     event::{self, Event, KeyCode, KeyEventKind},
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
     ExecutableCommand,
 };
+use enum_iterator::{last, next_cycle, Sequence};
+use lazy_static::lazy_static;
 use palette::{convert::FromColorUnclamped, Hsv, Srgb};
 use ratatui::{prelude::*, widgets::*};
 
-#[derive(Copy, Clone, Debug, Default)]
+lazy_static! {
+    static ref RAW_STDOUT_FD: OwnedFd = unsafe { OwnedFd::from_raw_fd(1) };
+}
+
+#[derive(Copy, Clone, Debug, Default, Sequence)]
 enum IoStream {
     #[default]
     Stdout,
+    LineBufferedStdout,
+    BlockBufferedStdout,
     Stderr,
+    LineBufferedStderr,
+    BlockBufferedStderr,
 }
 
 impl fmt::Display for IoStream {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", format!("{:?}", self).to_lowercase())
+        write!(
+            f,
+            "{}",
+            match self {
+                IoStream::Stdout => "stdout (unbuffered)",
+                IoStream::LineBufferedStdout => "stdout (line buffered)",
+                IoStream::BlockBufferedStdout => "stdout (block buffered)",
+                IoStream::Stderr => "stderr (unbuffered)",
+                IoStream::LineBufferedStderr => "stderr (line buffered)",
+                IoStream::BlockBufferedStderr => "stderr (block buffered)",
+            }
+        )
     }
 }
 
 impl IoStream {
-    fn as_stream(&self) -> Box<dyn Write> {
-        match self {
-            IoStream::Stdout => Box::new(stdout()),
-            IoStream::Stderr => Box::new(stderr()),
-        }
+    fn as_stream(&self) -> Result<Box<dyn Write>> {
+        Ok(match self {
+            IoStream::Stdout => Box::new(File::from(RAW_STDOUT_FD.try_clone()?)),
+            IoStream::LineBufferedStdout => Box::new(io::stdout()),
+            IoStream::BlockBufferedStdout => Box::new(BufWriter::new(io::stdout())),
+            IoStream::Stderr => Box::new(io::stderr()),
+            IoStream::LineBufferedStderr => Box::new(LineWriter::new(io::stderr())),
+            IoStream::BlockBufferedStderr => Box::new(BufWriter::new(io::stderr())),
+        })
     }
 }
 
@@ -168,12 +196,13 @@ struct App {
 
 impl App {
     pub fn run(io_stream: IoStream) -> Result<bool> {
-        let mut terminal = init_terminal(io_stream.as_stream())?;
+        let mut terminal = init_terminal(io_stream.as_stream()?)?;
         let mut app = Self::default();
         app.current_stream = io_stream;
 
         while !app.should_quit && !app.switch_stream {
             app.tick();
+
             terminal.draw(|frame| {
                 let size = frame.size();
                 app.setup_colors(size);
@@ -181,7 +210,7 @@ impl App {
             })?;
             app.handle_events()?;
         }
-        restore_terminal(io_stream.as_stream())?;
+        restore_terminal(io_stream.as_stream()?)?;
         Ok(app.should_quit)
     }
 
@@ -261,16 +290,9 @@ where
 }
 
 fn main() -> Result<()> {
-    let mut io_stream = IoStream::Stderr;
+    let mut io_stream = last::<IoStream>().unwrap_or_default();
     loop {
-        match io_stream {
-            IoStream::Stdout => {
-                io_stream = IoStream::Stderr;
-            }
-            IoStream::Stderr => {
-                io_stream = IoStream::Stdout;
-            }
-        };
+        io_stream = next_cycle(&io_stream).unwrap_or_default();
         if App::run(io_stream)? {
             break;
         }

@@ -8,7 +8,6 @@
 //! rand = "0.8.5"
 //! ratatui = "0.25.0"
 //! ```
-//!
 
 use anyhow::Result;
 use std::{

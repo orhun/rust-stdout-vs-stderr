@@ -2,6 +2,11 @@
 name = "rust-stdout-vs-stderr"
 version = "0.1.0"
 edition = "2021"
+default-run = "stdout-vs-stderr-all"
+
+[[bin]]
+name = "stdout-vs-stderr-all"
+path = "src/stdout-vs-stderr-all.rs"
 
 [[bin]]
 name = "simple-tui"
