@@ -31,6 +31,18 @@ path = "src/writer/block-buffered-stdout.rs"
 name = "raw-fd-exploit"
 path = "src/bonus/raw-fd-exploit.rs"
 
+[[bin]]
+name = "raw-stdout-1"
+path = "src/unbuffered/raw-stdout-1.rs"
+
+[[bin]]
+name = "raw-stdout-2"
+path = "src/unbuffered/raw-stdout-2.rs"
+
+[[bin]]
+name = "raw-stdout-broken"
+path = "src/unbuffered/raw-stdout-broken.rs"
+
 [dependencies]
 ratatui = "0.25.0"
 crossterm = "0.27.0"
