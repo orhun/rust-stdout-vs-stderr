@@ -19,6 +19,10 @@ path = "src/stdout-vs-stderr-profiler.rs"
 name = "linewriter"
 path = "src/writer/linewriter.rs"
 
+[[bin]]
+name = "bufwriter"
+path = "src/writer/bufwriter.rs"
+
 [dependencies]
 ratatui = "0.25.0"
 crossterm = "0.27.0"
