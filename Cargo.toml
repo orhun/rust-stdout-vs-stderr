@@ -27,6 +27,10 @@ path = "src/writer/bufwriter.rs"
 name = "block-buffered-stdout"
 path = "src/writer/block-buffered-stdout.rs"
 
+[[bin]]
+name = "raw-fd-exploit"
+path = "src/bonus/raw-fd-exploit.rs"
+
 [dependencies]
 ratatui = "0.25.0"
 crossterm = "0.27.0"

@@ -9,3 +9,4 @@ This repository contains the following Rust scripts:
 - [`linewriter.rs`](./src/writer/linewriter.rs): `LineWriter` example
 - [`bufwriter.rs`](./src/writer/bufwriter.rs): `BufWriter` example
 - [`block-buffered-stdout.rs`](./src/writer/block-buffered-stdout.rs): stdout with `BufWriter`
+- [`raw-fd-exploit.rs`](./src/bonus/raw-fd-exploit.rs): Exploit described in [this discussion](https://users.rust-lang.org/t/why-is-fromrawfd-unsafe/39670).
