@@ -16,3 +16,4 @@ This repository contains the following Rust scripts:
   - [`raw-stdout-2`](./src/unbuffered/raw-stdout-2.rs): Unbuffered stdout (alternative)
 
 - [`stdout-vs-stderr-all.rs`](./src/stdout-vs-stderr-all.rs) (**default**): rendering comparison for stdout and stderr using unbuffered / line-buffered / block-buffered writes
+- [`snowall.rs`](./src/bonus/snowfall.rs): happy new year!
