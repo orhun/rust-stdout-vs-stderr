@@ -91,7 +91,6 @@ impl Widget for AppWidget<'_> {
 #[derive(Debug, Default)]
 struct App {
     should_quit: bool,
-    current_stream: IoStream,
     // a 2d vec of the colors to render, calculated when the size changes as this is expensive
     // to calculate every frame
     colors: Vec<Vec<Color>>,
@@ -106,7 +105,6 @@ impl App {
     {
         let mut terminal = init_terminal(stream)?;
         let mut app = Self::default();
-        app.current_stream = io_stream;
         let start_time = Instant::now();
         while !app.should_quit {
             app.tick();

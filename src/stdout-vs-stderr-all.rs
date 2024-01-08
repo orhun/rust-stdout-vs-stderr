@@ -197,8 +197,10 @@ struct App {
 impl App {
     pub fn run(io_stream: IoStream) -> Result<bool> {
         let mut terminal = init_terminal(io_stream.as_stream()?)?;
-        let mut app = Self::default();
-        app.current_stream = io_stream;
+        let mut app = App {
+            current_stream: io_stream,
+            ..Default::default()
+        };
 
         while !app.should_quit && !app.switch_stream {
             app.tick();
