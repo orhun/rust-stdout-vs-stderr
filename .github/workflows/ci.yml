@@ -29,4 +29,4 @@ jobs:
       - name: Cache
         uses: Swatinem/rust-cache@v2
       - name: Build
-        uses: cargo ${{ matrix.job.command }}
+        run: cargo ${{ matrix.job.command }}
