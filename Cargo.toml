@@ -56,7 +56,7 @@ name = "snowfall"
 path = "src/bonus/snowfall.rs"
 
 [dependencies]
-ratatui = "0.25.0"
+ratatui = "0.26.0"
 crossterm = "0.27.0"
 anyhow = "1.0.79"
 enum-iterator = "1.5.0"

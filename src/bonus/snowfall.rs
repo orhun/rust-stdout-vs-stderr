@@ -22,7 +22,7 @@ use crossterm::{
 };
 use palette::{convert::FromColorUnclamped, Hsv, Srgb};
 use rand::{rngs::ThreadRng, Rng};
-use ratatui::{prelude::*, widgets::*};
+use ratatui::prelude::*;
 
 struct RgbColorsWidget<'a> {
     colors: &'a Vec<Vec<Color>>,
