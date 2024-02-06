@@ -22,7 +22,7 @@ use crossterm::{
     ExecutableCommand,
 };
 use palette::{convert::FromColorUnclamped, Hsv, Srgb};
-use ratatui::{prelude::*, widgets::*};
+use ratatui::prelude::*;
 
 #[derive(Copy, Clone, Debug, Default)]
 enum IoStream {
