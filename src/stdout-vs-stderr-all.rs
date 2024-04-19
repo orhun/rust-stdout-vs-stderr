@@ -294,7 +294,7 @@ where
 fn main() -> Result<()> {
     let mut io_stream = last::<IoStream>().unwrap_or_default();
     loop {
-        io_stream = next_cycle(&io_stream).unwrap_or_default();
+        io_stream = next_cycle(&io_stream);
         if App::run(io_stream)? {
             break;
         }
