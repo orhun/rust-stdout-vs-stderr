@@ -121,7 +121,7 @@ impl App {
                 let base_value = 1.;
                 let random_offset: f32 = self.rng.gen_range(-100.0..0.1);
                 let value = base_value + random_offset;
-                let value = value.max(0.0).min(1.0);
+                let value = value.clamp(0.0, 1.0);
                 let color = Hsv::new(0.0, 0.0, value);
                 let color = Srgb::<f32>::from_color_unclamped(color);
                 let color: Srgb<u8> = color.into_format();

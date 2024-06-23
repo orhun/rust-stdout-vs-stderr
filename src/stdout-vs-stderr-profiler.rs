@@ -162,7 +162,7 @@ impl App {
                 let random_offset: f32 = rng.gen_range(-0.1..0.1); // Adjust the range as needed
                 let value = base_value + random_offset;
                 // Clamp the value to ensure it stays within the valid range [0.0, 1.0]
-                let value = value.max(0.0).min(1.0);
+                let value = value.clamp(0.0, 1.0);
                 let color = Hsv::new(0.0, 0.0, value); // Set hue to 0 for grayscale
                 let color = Srgb::<f32>::from_color_unclamped(color);
                 let color: Srgb<u8> = color.into_format();
