@@ -60,7 +60,7 @@ ratatui = "0.26.3"
 crossterm = "0.27.0"
 anyhow = "1.0.86"
 enum-iterator = "2.1.0"
-lazy_static = "1.4.0"
+lazy_static = "1.5.0"
 palette = "0.7.6"
 rand = "0.8.5"
 
