@@ -57,7 +57,7 @@ path = "src/bonus/snowfall.rs"
 
 [dependencies]
 ratatui = "0.27.0"
-crossterm = "0.27.0"
+crossterm = "0.28.0"
 anyhow = "1.0.86"
 enum-iterator = "2.1.0"
 lazy_static = "1.5.0"
